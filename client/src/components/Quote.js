@@ -10,7 +10,7 @@ const Quote = () => {
   const [quote, setQuote] = React.useState('');
 
   const populateQuote = async () => {
-    const res = await fetch("http://localhost:1234/api/quote",{
+    const res = await fetch("http://localhost:1234/api/login",{
       headers: {
         "x-access-token": localStorage.getItem("token")
       }
@@ -29,6 +29,7 @@ const Quote = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const user = jwt.decode(token);
+      console.log(token)
       if (!user) {
         localStorage.removeItem('token');
         navigate("/login");

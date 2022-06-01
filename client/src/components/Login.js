@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +19,15 @@ const Login = () => {
       }),
     })
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
+    if (data.user) {
+      alert("Login successful");
+      localStorage.setItem("token", data.user);
+      // window.location.href = "/quote";
+      navigate("/dashboard");
+    } else {
+      alert("Please check your username and password");
+    }
   }
   return (
     <div>
