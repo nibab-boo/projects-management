@@ -66,15 +66,13 @@ app.post("/api/login", async (req, res) => {
 app.get("/api/login", async (req, res) => {
   // console.log("Hello");
   const token = req.headers['x-access-token'];
-  console.log(token);
   try {
     const decoded = jwt.verify(token, "secret123");
-    console.log(decoded);
     const email = decoded.email;
     const user = await User.findOne(
       { email: email }
     );
-
+    console.log(user);
     res.json({ status: "Ok", quote: user.quote })
   } catch(err) {
     console.log(err);
@@ -83,19 +81,17 @@ app.get("/api/login", async (req, res) => {
 
 })
 app.post("/api/quote", async (req, res) => {
-  // console.log("Hello");
   const token = req.headers['x-access-token'];
   console.log(token);
   console.log(req.body)
   try {
     const decoded = jwt.verify(token, "secret123");
     const email = decoded.email;
-    console.log(email);
     const user = await User.updateOne(
       { email: email },
       { $set: { quote: req.body.quote } }  
     );
-    console.log(user.quote);
+    console.log(user);
 
     res.json({ status: "Ok", quote: user.quote })
   } catch(err) {

@@ -11,7 +11,7 @@ const Quote = () => {
   const [tempquote, setTempQuote] = React.useState('');
 
   const updateQuote = async () => {
-    console.log("HELEO");
+    console.log(tempquote);
     const res = await fetch("http://localhost:1234/api/quote", {
       method: "POST",
       headers: {
@@ -36,7 +36,8 @@ const Quote = () => {
     });
 
     const data = await res.json();
-    // console.log(data);
+    console.log(data);
+    console.log("----------------------");
     if (data.status === "Ok") {
       setQuote(data.quote);
     } else {
@@ -48,7 +49,6 @@ const Quote = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const user = jwt.decode(token);
-      console.log(token)
       if (!user) {
         localStorage.removeItem('token');
         navigate("/login");
@@ -66,7 +66,7 @@ const Quote = () => {
         Hello, World!
       </h1>
 
-      <form onClick={updateQuote}>
+      <form onClick={()=> updateQuote()}>
         <input type="text" placeholder='Your quote' value={tempquote} onChange={(e)=> setTempQuote(e.currentTarget.value)} />
         <input type="submit" value="SUBMIT" />
       </form>
