@@ -109,13 +109,25 @@ app.post("/api/projects/new", async(req, res) => {
   try {
     const decoded = jwt.verify(token, "secret123");
     const email = decoded.email;
-    const user = await User.updateOne(
+    const response = await User.updateOne(
       { email: email },
       { $push: {
           projects: req.body.project 
       }}
     )
-    res.json({status: "Ok", projects: user.projects})
+    console.log(response);
+    if (response.acknowledged) {
+ 
+      // GIVES USER WITH ONLY ID AND ONE PROJECT
+      const user = await User.findOne(
+        { email: email, "projects.name": req.body.project.name},
+        { "projects.$": 1 }
+        )
+      console.log(user.projects[0]);
+      res.json({status: "Ok", project: user.projects[0]})
+    } else {
+      res.json({ status: "error", error: "Unable to add project"})
+    }
   } catch(err) {
     console.log(err);
     res.json({status: "error", error: err})

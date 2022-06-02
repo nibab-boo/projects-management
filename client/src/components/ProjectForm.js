@@ -9,11 +9,6 @@ const ProjectForm = ({update}) => {
 
   const createProject = async (e) => {
     e.preventDefault();
-    console.log(name);
-    console.log(details);
-    console.log(urlLink);
-    console.log(repo);
-    console.log(hosting);
     const res = await fetch("http://localhost:1234/api/projects/new", {
       method: "post",
       headers: {
@@ -30,7 +25,9 @@ const ProjectForm = ({update}) => {
     });
     const data = await res.json();
     console.log(data);
-    update({name, details, urlLink, repo, hosting})
+    if (data.status === "Ok") {
+      update(data.project)
+    }
   }
 
   return (
