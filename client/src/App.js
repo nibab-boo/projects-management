@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Login from './components/Login';
 import Register from './components/Register';
+import Dashboard from './components/Dashboard';
 import Quote from './components/Quote';
 function App() {
 
@@ -12,7 +13,8 @@ function App() {
         <Routes>
           <Route path="/login" exact element={ <Login /> }/>
           <Route path="/register" exact element={ <Register /> }/>
-          <Route path="/dashboard" exact element={ <Quote /> }/>
+          <Route path="/dashboard" exact element={ <Dashboard /> }/>
+          <Route path="/quote" exact element={ <Quote /> }/>
         </Routes>
       </Router>
     </div>
