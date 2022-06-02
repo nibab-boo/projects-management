@@ -1,14 +1,14 @@
+import ProjectForm from './ProjectForm';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-// import jwt from 'jsonwebtoken';
 const jwt = require('jsonwebtoken');
-
 
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [quote, setQuote] = React.useState('');
   const [projects, setProjects] = React.useState([]);
+
 
   const populateQuote = async () => {
     const res = await fetch("http://localhost:1234/api/login",{
@@ -43,6 +43,28 @@ const Dashboard = () => {
     }
   }, [navigate])
 
+  const updateProjects = (newProject) => {
+    setProjects([...projects, newProject]);
+  } 
+
+  const Projects = ({projects}) => {
+    console.log(typeof(projects));
+    return(
+      <>
+      {projects.map((project) => {
+        return (<div>
+        <h4>{project.name}</h4>
+        <p>{project.details}</p>
+        <p>{project.repo}</p>
+        <p>{project.urlLink}</p>
+        <p>{project.hosting}</p>
+      </div>)
+      })
+    }
+    </>
+    )
+  }
+
   return (
     <div>
       <h1>
@@ -52,18 +74,11 @@ const Dashboard = () => {
         Hello, World!
       </h1>
       <div>
-        {
-          projects.map((project) => {
-            return(
-              <div>
-                <h4>{project.name}</h4>
-                <p>{project.details}</p>
-                <p>{project.status}</p>
-                <p>{project.stack}</p>
-                <p>{project.hosting}</p>
-              </div>
-            )
-          })
+        <ProjectForm update={updateProjects} />
+      </div>
+      <div>
+        { projects &&
+          (<Projects projects={projects}/>)
         }
       </div>
       
