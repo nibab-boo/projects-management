@@ -72,7 +72,7 @@ app.get("/api/login", async (req, res) => {
     const user = await User.findOne(
       { email: email }
     );
-    console.log(user);
+    // console.log(user.projects);
     res.json({ status: "Ok", quote: user.quote, projects: user.projects })
   } catch(err) {
     console.log(err);
@@ -99,6 +99,27 @@ app.post("/api/quote", async (req, res) => {
     res.json({ status: "error", error: "invalid token" })
   }
 
+})
+
+app.post("/api/projects/new", async(req, res) => {
+  const token = req.headers['x-access-token'];
+  console.log(token);
+  console.log(req.body.project);
+  // res.json({status: "OK", project: req.body})
+  try {
+    const decoded = jwt.verify(token, "secret123");
+    const email = decoded.email;
+    const user = await User.updateOne(
+      { email: email },
+      { $push: {
+          projects: req.body.project 
+      }}
+    )
+    res.json({status: "Ok", projects: user.projects})
+  } catch(err) {
+    console.log(err);
+    res.json({status: "error", error: err})
+  }
 })
 
 app.listen(1234, () => {

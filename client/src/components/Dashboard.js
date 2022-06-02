@@ -22,7 +22,9 @@ const Dashboard = () => {
     console.log("----------------------");
     if (data.status === "Ok") {
       setQuote(data.quote);
-      setProjects(()=> (data.projects))
+      const newProjects = data.projects;
+      setProjects([...newProjects]);
+      console.log(projects);
     } else {
       alert(data.error)
     }
@@ -45,14 +47,15 @@ const Dashboard = () => {
 
   const updateProjects = (newProject) => {
     setProjects([...projects, newProject]);
+    console.log(projects);
   } 
 
-  const Projects = ({projects}) => {
-    console.log(typeof(projects));
+  const Projects = ({projectList}) => {
+    console.log(typeof(projectList));
     return(
       <>
-      {projects.map((project) => {
-        return (<div>
+      {projectList.map((project) => {
+        return (<div key={project.name}>
         <h4>{project.name}</h4>
         <p>{project.details}</p>
         <p>{project.repo}</p>
@@ -78,7 +81,7 @@ const Dashboard = () => {
       </div>
       <div>
         { projects &&
-          (<Projects projects={projects}/>)
+          (<Projects projectList={projects}/>)
         }
       </div>
       
