@@ -8,6 +8,25 @@ const jwt = require('jsonwebtoken');
 const Quote = () => {
   const navigate = useNavigate();
   const [quote, setQuote] = React.useState('');
+  const [tempquote, setTempQuote] = React.useState('');
+
+  const updateQuote = async () => {
+    console.log("HELEO");
+    const res = await fetch("http://localhost:1234/api/quote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token")
+      },
+      body: JSON.stringify({ quote: tempquote })
+    });
+
+    const data = await res.json();
+    console.log(data);
+    setQuote(data.quote);
+    setTempQuote("");
+  }
+
 
   const populateQuote = async () => {
     const res = await fetch("http://localhost:1234/api/login",{
@@ -40,11 +59,18 @@ const Quote = () => {
   }, [navigate])
 
   return (
-    <h1>
-      { quote || "No quote found."}
-      <br />
-      Hello, World!
-    </h1>
+    <div>
+      <h1>
+        { quote || "No quote found."}
+        <br />
+        Hello, World!
+      </h1>
+
+      <form onClick={updateQuote}>
+        <input type="text" placeholder='Your quote' value={tempquote} onChange={(e)=> setTempQuote(e.currentTarget.value)} />
+        <input type="submit" value="SUBMIT" />
+      </form>
+    </div>
   );
 };
 
