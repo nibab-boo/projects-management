@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const Dashboard = () => {
   const navigate = useNavigate();
   const [quote, setQuote] = React.useState('');
-
+  const [projects, setProjects] = React.useState([]);
 
   const populateQuote = async () => {
     const res = await fetch("http://localhost:1234/api/login",{
@@ -22,6 +22,7 @@ const Dashboard = () => {
     console.log("----------------------");
     if (data.status === "Ok") {
       setQuote(data.quote);
+      setProjects(()=> (data.projects))
     } else {
       alert(data.error)
     }
@@ -37,6 +38,8 @@ const Dashboard = () => {
       } else {
         populateQuote();
       }
+    } else {
+      navigate("/login")
     }
   }, [navigate])
 
@@ -48,7 +51,21 @@ const Dashboard = () => {
         <button onClick={ () => navigate("/quote")}>Gift Yourself</button>
         Hello, World!
       </h1>
-
+      <div>
+        {
+          projects.map((project) => {
+            return(
+              <div>
+                <h4>{project.name}</h4>
+                <p>{project.details}</p>
+                <p>{project.status}</p>
+                <p>{project.stack}</p>
+                <p>{project.hosting}</p>
+              </div>
+            )
+          })
+        }
+      </div>
       
     </div>
   );

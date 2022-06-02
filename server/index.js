@@ -8,7 +8,6 @@ const User = require("./models/user.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-
 app.use(cors());
 
 // GOING TO USE JSON
@@ -23,7 +22,7 @@ app.post("/api/register", async (req, res) => {
   console.log(req.body);
   try {
     // BCRYPT USER BEFORE CREATING IT.
-    const newPassword = await bcrypt.hash(req.body.password);
+    const newPassword = await bcrypt.hash(req.body.password, 10);
     // CREATE USER
     await User.create({
       name: req.body.name,
@@ -46,7 +45,7 @@ app.post("/api/login", async (req, res) => {
 
   
   if (user) {
-    const isValidPassword = await bcrypt.compare(req.body.password, user.password )
+    const isValidPassword = await bcrypt.compare(req.body.password, user.password)
     //  CREATING TOKEN FOR SESSION
     if (!isValidPassword) return res.json({status: "error", user: "invalid password"})
     const token = jwt.sign(
@@ -56,6 +55,7 @@ app.post("/api/login", async (req, res) => {
       },
       'secret123'
     )
+    console.log(token);
     return res.json({status: "Ok", user: token})
   } else {
     return  res.json({status: "error", user: false})
@@ -73,7 +73,7 @@ app.get("/api/login", async (req, res) => {
       { email: email }
     );
     console.log(user);
-    res.json({ status: "Ok", quote: user.quote })
+    res.json({ status: "Ok", quote: user.quote, projects: user.projects })
   } catch(err) {
     console.log(err);
     res.json({ status: "error", error: "invalid token" })

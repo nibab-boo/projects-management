@@ -21,6 +21,7 @@ const Login = () => {
     const data = await response.json();
     // console.log(data);
     if (data.user) {
+      console.log(data.user);
       alert("Login successful");
       localStorage.setItem("token", data.user);
       // window.location.href = "/quote";
