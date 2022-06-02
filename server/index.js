@@ -16,7 +16,7 @@ app.use(express.json());
 
 const url = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.41kwgus.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`;
 // CONNECT TO MONGOOSE
-mongoose.connect( url)
+mongoose.connect(url)
 
 app.post("/api/register", async (req, res) => {
   console.log(req.body);
@@ -123,7 +123,6 @@ app.post("/api/projects/new", async(req, res) => {
         { email: email, "projects.name": req.body.project.name},
         { "projects.$": 1 }
         )
-      console.log(user.projects[0]);
       res.json({status: "Ok", project: user.projects[0]})
     } else {
       res.json({ status: "error", error: "Unable to add project"})
@@ -131,6 +130,34 @@ app.post("/api/projects/new", async(req, res) => {
   } catch(err) {
     console.log(err);
     res.json({status: "error", error: err})
+  }
+})
+
+app.delete("/api/projects/:id/delete", async (req, res) => {
+  // console.log(req.params.id)
+  const toDeleteId = req.params.id
+  const token = req.headers['x-access-token'];
+  try {
+    const decoded = jwt.verify(token, "secret123");
+  
+    const projectId = (mongoose.Types.ObjectId(toDeleteId));
+    console.log(projectId)
+    // DELETE SUB DOCUMENT FROM ARRAY
+    const user = await User.updateOne({
+      email: decoded.email,
+    }, {
+      "$pull": {
+        "projects": {
+          "_id": projectId
+        }
+      }
+    }
+    );
+    console.log(user);
+    res.json({status: "Ok", id: toDeleteId})
+  } catch (err) {
+    console.log(err);
+    res.json({status: "error", error: "Delete process unfulfilled"})
   }
 })
 
