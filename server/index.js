@@ -3,10 +3,12 @@ const mongoose = require('mongoose'); // M
 const express = require("express"); // E
 const app = express();
 const cors = require("cors");
-require('dotenv').config({ path: './../.env' });
+require('dotenv').config({});
+// require('dotenv').config({ path: './../.env' });
 const User = require("./models/user.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const { Console } = require('console');
 
 const PORT = process.env.PORT || 1234
 
@@ -14,7 +16,6 @@ app.use(cors());
 
 // GOING TO USE JSON
 app.use(express.json());
-
 
 const url = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.41kwgus.mongodb.net/${process.env.DATABASE}?retryWrites=true&w=majority`;
 // CONNECT TO MONGOOSE
@@ -55,7 +56,7 @@ app.post("/api/login", async (req, res) => {
         name: user.name,
         email: user.email,
       },
-      'secret123'
+      process.env.SECRETKEY
     )
     console.log(token);
     return res.json({status: "Ok", user: token})
@@ -69,7 +70,7 @@ app.get("/api/login", async (req, res) => {
   // console.log("Hello");
   const token = req.headers['x-access-token'];
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
     const email = decoded.email;
     const user = await User.findOne(
       { email: email }
@@ -87,7 +88,7 @@ app.post("/api/quote", async (req, res) => {
   console.log(token);
   console.log(req.body)
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
     const email = decoded.email;
     const user = await User.updateOne(
       { email: email },
@@ -108,7 +109,7 @@ app.post("/api/projects/new", async(req, res) => {
   console.log(req.body.project);
   // res.json({status: "OK", project: req.body})
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
     const email = decoded.email;
     const response = await User.updateOne(
       { email: email },
@@ -139,7 +140,7 @@ app.delete("/api/projects/:id/delete", async (req, res) => {
   const toDeleteId = req.params.id
   const token = req.headers['x-access-token'];
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
   
     const projectId = (mongoose.Types.ObjectId(toDeleteId));
     console.log(projectId)
@@ -166,7 +167,7 @@ app.post("/api/projects/:id/status", async (req, res) => {
   const toUpdateId = req.params.id;
   const token = req.headers['x-access-token'];
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
 
     const projectId = mongoose.Types.ObjectId(toUpdateId);
 
