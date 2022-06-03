@@ -42,7 +42,7 @@ const Dashboard = () => {
         if (!user) {
           console.log("A");
           localStorage.removeItem('token');
-          navigate("/login");
+          navigate("/");
         } else {
           console.log("2");
           await populateQuote();

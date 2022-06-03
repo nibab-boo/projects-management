@@ -31,7 +31,8 @@ app.post("/api/register", async (req, res) => {
     await User.create({
       name: req.body.name,
       email: req.body.email,
-      password: newPassword
+      quote: req.body.quote,
+      password: newPassword,
     })
     // res.send(user);
     res.json({status: "Ok"})

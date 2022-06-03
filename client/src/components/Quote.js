@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 const Quote = () => {
   const navigate = useNavigate();
   const [tempquote, setTempQuote] = React.useState('');
-
-  const updateQuote = async () => {
+  
+  const updateQuote = async (e) => {
+    e.preventDefault();
     const res = await fetch("/api/quote", {
       method: "POST",
       headers: {
@@ -25,7 +26,7 @@ const Quote = () => {
   return (
     <div>
       <h1>Gift of words to your future self. </h1>
-      <form onSubmit={()=> updateQuote()}>
+      <form onSubmit={(e)=> updateQuote(e)}>
         <input type="text" placeholder='Your quote' value={tempquote} onChange={(e)=> setTempQuote(e.currentTarget.value)} />
         <input type="submit" value="SUBMIT" />
       </form>

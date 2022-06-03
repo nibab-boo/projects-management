@@ -33,10 +33,10 @@ const Register = () => {
         Register
       </h1>
       <form onSubmit={registerUser}>
-        <input type="text" placeholder="name" onChange={(e)=> setName(e.currentTarget.value)} /><br/>
-        <input type="email" placeholder="email" onChange={(e)=> setEmail(e.currentTarget.value)} />
+        <input type="text" placeholder="name" value={name} onChange={(e)=> setName(e.currentTarget.value)} /><br/>
+        <input type="email" placeholder="email" value={email} onChange={(e)=> setEmail(e.currentTarget.value)} />
         <br/>
-        <input type="password" placeholder="password" autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)} />
+        <input type="password" placeholder="password" value={password} autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)} />
         <input type="submit" value="Sign in" />
       </form>
     </div>

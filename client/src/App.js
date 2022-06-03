@@ -19,11 +19,12 @@ function App() {
                 <Link to="/register">register</Link>
                 <Link to="/dashboard">dashboard</Link>
               </div>
+              <div>
+                <Register />
+                <Login />
+              </div>
             </>
           }/>
-
-          <Route path="/login" exact element={ <Login /> }/>
-          <Route path="/register" exact element={ <Register /> }/>
           <Route path="/dashboard" exact element={ <Dashboard /> }/>
           <Route path="/quote" exact element={ <Quote /> }/>
         </Routes>
