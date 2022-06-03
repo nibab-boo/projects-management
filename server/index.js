@@ -79,7 +79,7 @@ app.post("/api/login", async (req, res) => {
 })
 
 app.get("/api/login", async (req, res) => {
-  // console.log("Hello");
+  console.log("Hello");
   const token = req.headers['x-access-token'];
   try {
     const decoded = jwt.verify(token, process.env.SECRETKEY);
@@ -93,8 +93,9 @@ app.get("/api/login", async (req, res) => {
     console.log(err);
     res.json({ status: "error", error: "invalid token" })
   }
-
 })
+
+
 app.post("/api/quote", async (req, res) => {
   const token = req.headers['x-access-token'];
   console.log(token);

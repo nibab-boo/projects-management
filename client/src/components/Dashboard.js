@@ -18,7 +18,9 @@ const Dashboard = () => {
       }
     });
     console.log("5");
+    console.log("response", res);
     const data = await res.json();
+    console.log("data", data);
     if (data.status === "Ok") {
       setQuote(data.quote);
       console.log("ok");
