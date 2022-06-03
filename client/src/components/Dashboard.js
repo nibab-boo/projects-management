@@ -56,10 +56,6 @@ const Dashboard = () => {
     .catch(console.error);
   }, [navigate])
 
-  const updateProjects = (newProject) => {
-    setProjects([...projects, newProject]);
-  };
-
   // DELETING PROJECT FROM USER
   const deleteProject = async (id) => {
     const res = await fetch(`/api/projects/${id}/delete`, {
@@ -164,7 +160,7 @@ const Dashboard = () => {
         <div>
           <ul>
             <li className=''  onClick={ () => navigate("/quote")}>Change Gift</li>
-            <li className=''>Add Project</li>
+            <li className='' onClick={ () => navigate("/project/new") }>Add Project</li>
           </ul>
           <div style={{borderRadius: "16px"}}className='p-2 mx-5 my-3 bg-danger text-white'>Log Out</div>
         </div>
@@ -177,7 +173,7 @@ const Dashboard = () => {
           You have {projects.length} projects.
         </h1>
         <div>
-          <ProjectForm update={updateProjects} />
+          {/* <ProjectForm update={updateProjects} /> */}
         </div>
         <div>
           { projects &&

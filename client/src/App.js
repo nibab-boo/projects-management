@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Quote from './components/Quote';
+import ProjectForm from './components/ProjectForm';
 
 function App() {
 
@@ -30,6 +31,8 @@ function App() {
           }/>
           <Route path="/dashboard" exact element={ <Dashboard /> }/>
           <Route path="/quote" exact element={ <Quote /> }/>
+          <Route path="/project/new" exact element={ <ProjectForm submit="Create" title="Create a New Project" /> }/>
+          <Route path="/project/edit/:id" exact element={ <ProjectForm submit="Update" title="Edit the Project" /> }/>
         </Routes>
       </Router>
     </div>
