@@ -12,7 +12,7 @@ const Dashboard = () => {
 
   const populateQuote = async () => {
     console.log("4");
-    const res = await fetch("/api/login",{
+    const res = await fetch("/api/user",{
       headers: {
         "x-access-token": localStorage.getItem("token")
       }

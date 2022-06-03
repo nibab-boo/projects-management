@@ -78,7 +78,7 @@ app.post("/api/login", async (req, res) => {
 
 })
 
-app.get("/api/login", async (req, res) => {
+app.get("/api/user", async (req, res) => {
   console.log("Hello");
   const token = req.headers['x-access-token'];
   try {
