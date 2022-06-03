@@ -28,6 +28,10 @@ const Dashboard = () => {
   }
 
   React.useEffect(() => {
+    console.log(quote);
+  }, [quote])
+
+  React.useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       const user = jwt.decode(token);
