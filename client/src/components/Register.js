@@ -29,18 +29,30 @@ const Register = () => {
 
   return (
     <div>
-      <h1>
-        Register
-      </h1>
+      <h3 className='mb-4 text-left'>
+        <strong>
+          Sign Up
+        </strong>
+      </h3>
       <form onSubmit={registerUser}>
-        <input type="text" placeholder="name" value={name} onChange={(e)=> setName(e.currentTarget.value)} /><br/>
-        <input type="email" placeholder="email" value={email} onChange={(e)=> setEmail(e.currentTarget.value)} />
-        <br/>
-        <input type="password" placeholder="password" value={password} autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)} />
-        <input type="submit" value="Sign in" />
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" placeholder="Adam Christ" value={name} onChange={(e)=> setName(e.currentTarget.value)} />
+          <label for="floatingInput">Name</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingEmail" placeholder="email" value={email} onChange={(e)=> setEmail(e.currentTarget.value)}/>
+          <label for="floatingEmail">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" value={password} autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)}/>
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="d-grid gap-2">
+          <input type="submit" className='btn btn-primary btn-sm' value="Sign in" />
+        </div>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default Register;  
