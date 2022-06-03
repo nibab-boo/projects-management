@@ -6,9 +6,15 @@ const ProjectForm = ({update}) => {
   const [urlLink, setUrlLink] = React.useState('');
   const [repo, setRepo] = React.useState('');
   const [hosting, setHosting] = React.useState('');
+  const [stacks, setStacks] = React.useState('');
 
   const createProject = async (e) => {
     e.preventDefault();
+    
+    const arrayStack = stacks.split(",").map((stack) => {
+      return stack.trim();
+    });
+
     const res = await fetch("http://localhost:1234/api/projects/new", {
       method: "post",
       headers: {
@@ -21,6 +27,7 @@ const ProjectForm = ({update}) => {
         urlLink,
         repo,
         hosting,
+        stacks: arrayStack
       }})
     });
     const data = await res.json();
@@ -36,6 +43,7 @@ const ProjectForm = ({update}) => {
       <input type="text" value={details} name="Details" onChange={(e)=> setDetails(e.currentTarget.value)} />
       <input type="text" value={urlLink} name="Live" onChange={(e)=> setUrlLink(e.currentTarget.value)} />
       <input type="text" value={repo} name="Repo" onChange={(e)=> setRepo(e.currentTarget.value)} />
+      <input type="text" value={stacks} name="Stacks" onChange={ (e) => setStacks(e.currentTarget.value) } />
       <input type="text" value={hosting} name="hosting" onChange={(e)=> setHosting(e.currentTarget.value)} />
       <input type="submit" value="Submit" />
     </form>

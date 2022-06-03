@@ -103,7 +103,6 @@ app.post("/api/quote", async (req, res) => {
 
 app.post("/api/projects/new", async(req, res) => {
   const token = req.headers['x-access-token'];
-  console.log(token);
   console.log(req.body.project);
   // res.json({status: "OK", project: req.body})
   try {
@@ -115,7 +114,6 @@ app.post("/api/projects/new", async(req, res) => {
           projects: req.body.project 
       }}
     )
-    console.log(response);
     if (response.acknowledged) {
  
       // GIVES USER WITH ONLY ID AND ONE PROJECT
@@ -157,7 +155,7 @@ app.delete("/api/projects/:id/delete", async (req, res) => {
     res.json({status: "Ok", id: toDeleteId})
   } catch (err) {
     console.log(err);
-    res.json({status: "error", error: "Delete process unfulfilled"})
+    res.json({status: "error", error: "Delete process unfulfilledd"})
   }
 })
 

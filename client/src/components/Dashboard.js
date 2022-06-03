@@ -73,6 +73,11 @@ const Dashboard = () => {
           <p>{project.details}</p>
           <p>{project.repo}</p>
           <p>{project.urlLink}</p>
+          <ul style={{listStyle: "inside"}}>
+            { project.stacks.map((stack) => (
+              <li>{stack}</li>
+            ))}
+          </ul>
           <p>{project.hosting}</p>
           <button onClick={() => deleteProject(project._id)}>DELETE THIS PROJECT</button>
         </div>)
