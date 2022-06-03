@@ -6,7 +6,7 @@ const Quote = () => {
   const [tempquote, setTempQuote] = React.useState('');
 
   const updateQuote = async () => {
-    const res = await fetch("http://localhost:1234/api/quote", {
+    const res = await fetch("/api/quote", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

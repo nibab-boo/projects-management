@@ -8,6 +8,8 @@ const User = require("./models/user.model");
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+const PORT = process.env.PORT || 1234
+
 app.use(cors());
 
 // GOING TO USE JSON
@@ -201,6 +203,6 @@ app.post("/api/projects/:id/status", async (req, res) => {
 
 
 
-app.listen(1234, () => {
+app.listen(PORT, () => {
   console.log("Server starting on 1234");
 })

@@ -11,7 +11,7 @@ const Dashboard = () => {
 
 
   const populateQuote = async () => {
-    const res = await fetch("http://localhost:1234/api/login",{
+    const res = await fetch("/api/login",{
       headers: {
         "x-access-token": localStorage.getItem("token")
       }
@@ -48,7 +48,7 @@ const Dashboard = () => {
 
   // DELETING PROJECT FROM USER
   const deleteProject = async (id) => {
-    const res = await fetch(`http://localhost:1234/api/projects/${id}/delete`, {
+    const res = await fetch(`/api/projects/${id}/delete`, {
       method: "DELETE",
       headers: { "x-access-token": localStorage.getItem("token") }
     })
@@ -66,7 +66,7 @@ const Dashboard = () => {
   const changeStatus = async (id, status) => {
     console.log("id", id);
     console.log("status", status);
-    const res = await fetch(`http://localhost:1234/api/projects/${id}/status`, {
+    const res = await fetch(`/api/projects/${id}/status`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

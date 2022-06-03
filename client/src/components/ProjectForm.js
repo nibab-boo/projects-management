@@ -16,7 +16,7 @@ const ProjectForm = ({update}) => {
       return stack.trim();
     });
 
-    const res = await fetch("http://localhost:1234/api/projects/new", {
+    const res = await fetch("/api/projects/new", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
