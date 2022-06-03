@@ -104,6 +104,11 @@ const Dashboard = () => {
     navigate(`/project/edit/${id}`);
   }
 
+  const logOut = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  }
+
   const Projects = ({projectList}) => {
     return(
       <>
@@ -174,7 +179,7 @@ const Dashboard = () => {
             <li className=''  onClick={ () => navigate("/quote")}>Change Gift</li>
             <li className='' onClick={ () => navigate("/project/new") }>Add Project</li>
           </ul>
-          <div style={{borderRadius: "16px"}}className='p-2 mx-5 my-3 bg-danger text-white'>Log Out</div>
+          <div style={{borderRadius: "16px"}}className='p-2 mx-5 my-3 bg-danger text-white' onClick={() => logOut()}>Log Out</div>
         </div>
       </div>
 
