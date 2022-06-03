@@ -48,7 +48,7 @@ const Register = () => {
           <label for="floatingPassword">Password</label>
         </div>
         <div class="d-grid gap-2">
-          <input type="submit" className='btn btn-primary btn-sm' value="Sign in" />
+          <input type="submit" className='btn btn-primary btn-sm fs-3 fw-bold' value="Sign Up" />
         </div>
       </form>
     </div>

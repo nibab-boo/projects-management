@@ -32,14 +32,23 @@ const Login = () => {
   }
   return (
     <div>
-      <h1>
-        Login
-      </h1>
+      <h3 className='mb-4 text-left'>
+        <strong>
+          Log In
+        </strong>
+      </h3>
       <form onSubmit={loginUser}>
-        <input type="email" placeholder="email" value={email} onChange={(e)=> setEmail(e.currentTarget.value)} />
-        <br/>
-        <input type="password" placeholder="password" value={password} autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)} />
-        <input type="submit" value="Log in" />
+      <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingEmail" placeholder="email" value={email} onChange={(e)=> setEmail(e.currentTarget.value)}/>
+          <label for="floatingEmail">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" autoComplete="on" id="floatingPassword" placeholder="Password" value={password} autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)}/>
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="d-grid gap-2">
+          <input type="submit" className='btn btn-warning btn-sm fs-3 fw-bold' value="Log In" />
+        </div>
       </form>
     </div>
   );
