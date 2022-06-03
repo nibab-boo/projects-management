@@ -14,6 +14,7 @@ const Dashboard = () => {
     console.log("4");
     const res = await fetch("/api/user",{
       headers: {
+        "Accept": "application/json", 
         "x-access-token": localStorage.getItem("token")
       }
     });
