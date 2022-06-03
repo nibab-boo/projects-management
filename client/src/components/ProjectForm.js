@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const ProjectForm = ({update}) => {
   const [name, setName] = React.useState('');
@@ -7,10 +7,11 @@ const ProjectForm = ({update}) => {
   const [repo, setRepo] = React.useState('');
   const [hosting, setHosting] = React.useState('');
   const [stacks, setStacks] = React.useState('');
+  const [status, setStatus] = React.useState('');
 
   const createProject = async (e) => {
     e.preventDefault();
-    
+
     const arrayStack = stacks.split(",").map((stack) => {
       return stack.trim();
     });
@@ -24,9 +25,10 @@ const ProjectForm = ({update}) => {
       body: JSON.stringify({project: {
         name,
         details,
-        urlLink,
-        repo,
+        urlLink,  
+        repoLink: repo,
         hosting,
+        status,
         stacks: arrayStack
       }})
     });
@@ -36,6 +38,9 @@ const ProjectForm = ({update}) => {
       update(data.project)
     }
   }
+  useEffect(() => {
+    console.log(status);
+  }, [status])
 
   return (
     <form onSubmit={(e) => createProject(e)}>
@@ -43,6 +48,11 @@ const ProjectForm = ({update}) => {
       <input type="text" value={details} name="Details" onChange={(e)=> setDetails(e.currentTarget.value)} />
       <input type="text" value={urlLink} name="Live" onChange={(e)=> setUrlLink(e.currentTarget.value)} />
       <input type="text" value={repo} name="Repo" onChange={(e)=> setRepo(e.currentTarget.value)} />
+      <select name="status" defaultValue="WAITING" id="status" onChange={(e) => setStatus(e.currentTarget.selectedOptions[0].value)}>
+        <option value="WAITING">Waiting</option>
+        <option value="ONGOING">Ongoing</option>
+        <option value="COMPLETED">Completed</option>
+      </select>
       <input type="text" value={stacks} name="Stacks" onChange={ (e) => setStacks(e.currentTarget.value) } />
       <input type="text" value={hosting} name="hosting" onChange={(e)=> setHosting(e.currentTarget.value)} />
       <input type="submit" value="Submit" />

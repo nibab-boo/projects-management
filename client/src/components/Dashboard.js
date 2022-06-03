@@ -69,10 +69,11 @@ const Dashboard = () => {
       {projectList.map((project) => {
         return (
         <div key={project._id} >
-          <h4>{project.name}</h4>
-          <p>{project.details}</p>
-          <p>{project.repo}</p>
-          <p>{project.urlLink}</p>
+          <h4>Name: {project.name}</h4>
+          <p>Details: {project.details}</p>
+          <p>Status: {project.status}</p>
+          <p>Repo: <a href={project.repoLink}> REPO </a></p>
+          <p>Live: <a href={project.urlLink}> LIVE </a></p>
           <ul style={{listStyle: "inside"}}>
             { project.stacks.map((stack) => (
               <li>{stack}</li>

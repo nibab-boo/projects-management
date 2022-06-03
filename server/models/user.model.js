@@ -6,7 +6,7 @@ const Project = new mongoose.Schema(
     details: { type: String, required: true },
     urlLink: { type: String, unique: true },
     repoLink: { type: String, unique: true },
-    status: { type: String },
+    status: { type: String, enum: ["WAITING", "ONGOING", "COMPLETED"], default: "WAITING" },
     stacks: [String],
     hosting: { type: String, required: true }
   }
