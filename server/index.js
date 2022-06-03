@@ -12,22 +12,19 @@ const { Console } = require('console');
 
 const PORT = process.env.PORT || 1234
 
-app.use(cors());
-
 if (process.env.NODE_ENV === 'production') {
-  const publicPath = path.join(__dirname, '..', 'client', 'build');
+  const path = require('path');
   // Exprees will serve up production assets
-  console.log(publicPath);
-  app.use(express.static(publicPath));
+  app.use(express.static(path.resolve(__dirname, '..', 'client', 'build', 'index.html')));
 
   // Express serve up index.html file if it doesn't recognize route
-  const path = require('path');
   app.get('*', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
+    res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
   });
 }
 
 
+app.use(cors());
 
 // GOING TO USE JSON
 app.use(express.json());
