@@ -87,7 +87,7 @@ app.get("/api/login", async (req, res) => {
     const user = await User.findOne(
       { email: email }
     );
-    // console.log(user.projects);
+    console.log({ status: "Ok", quote: user.quote, projects: user.projects });
     res.json({ status: "Ok", quote: user.quote, projects: user.projects })
   } catch(err) {
     console.log(err);
