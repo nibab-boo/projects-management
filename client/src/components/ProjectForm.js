@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const ProjectForm = ({update}) => {
   const [name, setName] = React.useState('');
@@ -38,9 +38,6 @@ const ProjectForm = ({update}) => {
       update(data.project)
     }
   }
-  useEffect(() => {
-    console.log(status);
-  }, [status])
 
   return (
     <form onSubmit={(e) => createProject(e)}>

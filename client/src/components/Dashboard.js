@@ -11,15 +11,17 @@ const Dashboard = () => {
 
 
   const populateQuote = async () => {
+    console.log("4");
     const res = await fetch("/api/login",{
       headers: {
         "x-access-token": localStorage.getItem("token")
       }
     });
-
+    console.log("5");
     const data = await res.json();
     if (data.status === "Ok") {
       setQuote(data.quote);
+      console.log("ok");
       const newProjects = data.projects;
       setProjects([...newProjects]);
     } else {
@@ -28,18 +30,17 @@ const Dashboard = () => {
   }
 
   React.useEffect(() => {
-    console.log(quote);
-  }, [quote])
-
-  React.useEffect(() => {
     const token = localStorage.getItem('token');
+    console.log("1");
     const fetchData = async () => {
       if (token) {
         const user = jwt.decode(token);
         if (!user) {
+          console.log("A");
           localStorage.removeItem('token');
           navigate("/login");
         } else {
+          console.log("2");
           await populateQuote();
         }
       } else {
