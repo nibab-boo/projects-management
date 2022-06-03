@@ -60,8 +60,35 @@ const Dashboard = () => {
       console.log(projects, newProjects)
       setProjects([...newProjects]);
     }
-
   }
+
+  // CHANGE STATUS
+  const changeStatus = async (id, status) => {
+    console.log("id", id);
+    console.log("status", status);
+    const res = await fetch(`http://localhost:1234/api/projects/${id}/status`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ status: status }),
+    })
+
+    const data = await res.json();
+    console.log(data);
+    if (data.status === "Ok") {
+      // console.log("hello");
+      const updatedProjects = projects.map((project) => {
+        if (project._id !== data.project._id) return project;
+        return data.project;
+      })
+      console.log(updatedProjects);
+      setProjects([...updatedProjects]);
+    } else {
+      alert(data.error);
+    }
+  } 
 
   const Projects = ({projectList}) => {
     return(
@@ -71,7 +98,23 @@ const Dashboard = () => {
         <div key={project._id} >
           <h4>Name: {project.name}</h4>
           <p>Details: {project.details}</p>
-          <p>Status: {project.status}</p>
+          <p>
+            Status: {project.status}
+            { project.status === "WAITING" &&
+              (
+                <button onClick={() => changeStatus(project._id, "ONGOING")}>
+                  Let's Start
+                </button>
+              )
+            }
+            { project.status === "ONGOING" &&
+              (
+                <button onClick={() => changeStatus(project._id, "COMPLETED")}>
+                  Mark as Completed
+                </button>
+              )
+            }
+          </p>
           <p>Repo: <a href={project.repoLink}> REPO </a></p>
           <p>Live: <a href={project.urlLink}> LIVE </a></p>
           <ul style={{listStyle: "inside"}}>

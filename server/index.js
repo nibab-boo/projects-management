@@ -131,6 +131,7 @@ app.post("/api/projects/new", async(req, res) => {
   }
 })
 
+
 app.delete("/api/projects/:id/delete", async (req, res) => {
   // console.log(req.params.id)
   const toDeleteId = req.params.id
@@ -158,6 +159,47 @@ app.delete("/api/projects/:id/delete", async (req, res) => {
     res.json({status: "error", error: "Delete process unfulfilledd"})
   }
 })
+
+app.post("/api/projects/:id/status", async (req, res) => {
+  const toUpdateId = req.params.id;
+  const token = req.headers['x-access-token'];
+  try {
+    const decoded = jwt.verify(token, "secret123");
+
+    const projectId = mongoose.Types.ObjectId(toUpdateId);
+
+    const response = await User.updateOne({
+      email: decoded.email,
+        "projects._id": projectId,
+      }, {
+        $set: {
+          "projects.$.status": req.body.status,
+        } 
+      }
+    )
+
+    if (response.acknowledged && response.modifiedCount ) {
+      // RETRIVING ONLY ONE PROJECT
+      const user = await User.findOne({
+        email: decoded.email,
+        "projects._id": projectId,
+      }, 
+      {
+        "projects.$": 1,
+      })
+
+      res.json({ status: "Ok", project: user.projects[0] })
+    } else {
+      res.json({ status: "error", errro: "Sorry for inconvience. Please, retry again." })
+    }
+    // console.log(projectId, decoded);
+  } catch (err) {
+    console.log(err)
+    res.json({status: "error", error: "Action Failed"})
+  }
+})
+
+
 
 app.listen(1234, () => {
   console.log("Server starting on 1234");

@@ -7,7 +7,7 @@ const ProjectForm = ({update}) => {
   const [repo, setRepo] = React.useState('');
   const [hosting, setHosting] = React.useState('');
   const [stacks, setStacks] = React.useState('');
-  const [status, setStatus] = React.useState('');
+  const [status, setStatus] = React.useState('WAITING');
 
   const createProject = async (e) => {
     e.preventDefault();
