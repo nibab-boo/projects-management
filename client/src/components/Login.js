@@ -43,7 +43,7 @@ const Login = () => {
           <label for="floatingEmail">Email</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" autoComplete="on" id="floatingPassword" placeholder="Password" value={password} autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)}/>
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" value={password} autoComplete='on' onChange={(e)=> setPassword(e.currentTarget.value)}/>
           <label for="floatingPassword">Password</label>
         </div>
         <div class="d-grid gap-2">

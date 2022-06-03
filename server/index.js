@@ -77,8 +77,7 @@ app.get("/api/user", async (req, res) => {
     const user = await User.findOne(
       { email: email }
     );
-    console.log({ status: "Ok", quote: user.quote, projects: user.projects });
-    res.json({ status: "Ok", quote: user.quote, projects: user.projects })
+    res.json({ status: "Ok", username: user.name, quote: user.quote, projects: user.projects })
   } catch(err) {
     console.log(err);
     res.json({ status: "error", error: "invalid token" })

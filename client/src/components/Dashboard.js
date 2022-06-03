@@ -98,42 +98,54 @@ const Dashboard = () => {
     } else {
       alert(data.error);
     }
-  } 
+  }
+
+  const editProject = (id) => {
+    navigate(`/project/edit/${id}`);
+  }
 
   const Projects = ({projectList}) => {
     return(
       <>
       {projectList.map((project) => {
         return (
-        <div key={project._id} >
-          <h4>Name: {project.name}</h4>
-          <p>Details: {project.details}</p>
+        <div key={project._id} className="shadow p-3 mb-5 bg-body rounded" style={{textAlign: "left"}} >
+          <h4>{project.name}</h4>
+          <p style={{color: "gray"}}>{project.details}</p>
           <p>
-            Status: {project.status}
+            <span className='me-3'>
+              STATUS: {project.status}
+            </span>
             { project.status === "WAITING" &&
               (
-                <button onClick={() => changeStatus(project._id, "ONGOING")}>
+                <button className='btn btn-sm btn-outline-primary' onClick={() => changeStatus(project._id, "ONGOING")}>
                   Let's Start
                 </button>
               )
             }
             { project.status === "ONGOING" &&
               (
-                <button onClick={() => changeStatus(project._id, "COMPLETED")}>
+                <button className='btn btn-sm btn-outline-primary' onClick={() => changeStatus(project._id, "COMPLETED")}>
                   Mark as Completed
                 </button>
               )
             }
           </p>
-          <p>Repo: <a href={project.repoLink}> REPO </a></p>
-          <p>Live: <a href={project.urlLink}> LIVE </a></p>
-          <ul style={{listStyle: "inside"}}>
+          <div className='border p-2 pb-0 mb-2'>
+            <p>REPO: <a target="_blank" href={project.repoLink} rel="noreferrer"> {project.repoLink} </a></p>
+            <p>LIVE: <a target="_blank" href={project.urlLink} rel="noreferrer"> {project.urlLink} </a></p>
+          </div>
+          <p>STACKS</p>
+          <ul style={{listStyle: "inside"}} className="border p-2 rounded">
             { project.stacks.map((stack) => (
-              <li>{stack}</li>
+              <li className='d-inline pe-3'>{stack}</li>
             ))}
           </ul>
-          <p>{project.hosting}</p>
-          <button onClick={() => deleteProject(project._id)}>DELETE THIS PROJECT</button>
+          <p>HOSTING: {project.hosting}</p>
+          <div style={{float: "right"}}>
+            <button className='btn btn-sm btn-warning mx-1' onClick={() => deleteProject(project._id)}>EDIT</button>
+            <button className='btn btn-sm btn-danger mx-1' onClick={() => editProject(project._id)}>DELETE</button>
+          </div>
         </div>)
       })
     }
@@ -167,15 +179,12 @@ const Dashboard = () => {
       </div>
 
       {/* RIGHT SIDE */}
-      <div className='p-3'>
+      <div className='py-3 px-5'>
         
-        <h1>
+        <h1 className='mb-5'>
           You have {projects.length} projects.
         </h1>
-        <div>
-          {/* <ProjectForm update={updateProjects} /> */}
-        </div>
-        <div>
+        <div className=''>
           { projects &&
             (<Projects projectList={projects}/>)
           }
