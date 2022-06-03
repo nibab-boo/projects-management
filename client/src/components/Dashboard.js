@@ -13,6 +13,7 @@ const Dashboard = () => {
   const populateQuote = async () => {
     console.log("4");
     const res = await fetch("/api/user",{
+      method: "GET",
       headers: {
         "Accept": "application/json", 
         "x-access-token": localStorage.getItem("token")
