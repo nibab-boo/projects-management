@@ -33,17 +33,20 @@ const Dashboard = () => {
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      const user = jwt.decode(token);
-      if (!user) {
-        localStorage.removeItem('token');
-        navigate("/login");
+    const fetchData = async () => {
+      if (token) {
+        const user = jwt.decode(token);
+        if (!user) {
+          localStorage.removeItem('token');
+          navigate("/login");
+        } else {
+          await populateQuote();
+        }
       } else {
-        populateQuote();
+        navigate("/login")
       }
-    } else {
-      navigate("/login")
     }
+    fetchData();
   }, [navigate])
 
   const updateProjects = (newProject) => {
