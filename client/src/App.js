@@ -14,15 +14,18 @@ function App() {
         <Routes>
           <Route path="/" exact element={ 
             <>
+            <div className='container'>
               <div>
-                <Link to="/login">LOGIN</Link>
-                <Link to="/register">register</Link>
-                <Link to="/dashboard">dashboard</Link>
+                <h3> Projects Management App</h3>
+                <p className='mt-3'>
+                  <strong>Record your app ideas and working project in a organized way</strong>
+                </p>
               </div>
-              <div>
+              <div className='d-flex justify-content-evenly p-5 my-5 shadow bg-body rounded'>
                 <Register />
                 <Login />
               </div>
+            </div>
             </>
           }/>
           <Route path="/dashboard" exact element={ <Dashboard /> }/>
