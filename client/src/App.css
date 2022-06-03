@@ -2,6 +2,38 @@
 
 .App {
   text-align: center;
-  margin-top: 24px;
+  /* margin-top: 24px; */
 }
 
+.leftSide {
+  height: 100vh;
+  /* background: linear-gradient(45deg, #010830, white);; */
+  background-color: rgb(242, 239, 236);
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 24px 0;
+  border-radius: 0 24px 32px 0;
+}
+
+.leftSide > div > div,.leftSide li {
+  cursor: pointer;
+}
+
+.leftSide ul {
+  list-style: none;
+  width: 100%;
+  margin: 0;
+}
+.leftSide li {
+  color: rgb(76, 61, 61);
+  width: 100%;
+  padding: 12px 0;
+}
+.leftSide li:hover {
+  color: wheat;
+  background-color: #010830;
+}

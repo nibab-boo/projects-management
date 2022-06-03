@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const Dashboard = () => {
   const navigate = useNavigate();
   const [quote, setQuote] = React.useState('');
+  const [username, setUserName] = React.useState('');
   const [projects, setProjects] = React.useState([]);
 
 
@@ -25,7 +26,7 @@ const Dashboard = () => {
     console.log("data", data);
     if (data.status === "Ok") {
       setQuote(data.quote);
-      console.log("ok");
+      setUserName(data.username);
       const newProjects = data.projects;
       setProjects([...newProjects]);
     } else {
@@ -145,22 +146,46 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <h1>
-        { quote || "No quote found."}
-        <br />
-        <button onClick={ () => navigate("/quote")}>Gift Yourself</button>
-        Hello, World!
-      </h1>
-      <div>
-        <ProjectForm update={updateProjects} />
+    <div className='d-flex'>
+      {/* LEFT SIDES */}
+      <div className='leftSide'>
+        <div>
+            <h4 className='mb-3'>
+              <strong>
+                Hi {username}!
+              </strong>
+            </h4>
+            <div className='fs-6' style={{color: "rgba(0, 11, 73, .67)"}}>
+              <strong>
+                { quote }
+              </strong>
+            </div>
+          </div>
+        <div>
+          <ul>
+            <li className=''  onClick={ () => navigate("/quote")}>Change Gift</li>
+            <li className=''>Add Project</li>
+          </ul>
+          <div style={{borderRadius: "16px"}}className='p-2 mx-5 my-3 bg-danger text-white'>Log Out</div>
+        </div>
       </div>
-      <div>
-        { projects &&
-          (<Projects projectList={projects}/>)
-        }
+
+      {/* RIGHT SIDE */}
+      <div className='p-3'>
+        
+        <h1>
+          You have {projects.length} projects.
+        </h1>
+        <div>
+          <ProjectForm update={updateProjects} />
+        </div>
+        <div>
+          { projects &&
+            (<Projects projectList={projects}/>)
+          }
+        </div>
+        
       </div>
-      
     </div>
   );
 };
