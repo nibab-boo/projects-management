@@ -46,7 +46,8 @@ const Dashboard = () => {
         navigate("/login")
       }
     }
-    fetchData();
+    fetchData()
+    .catch(console.error);
   }, [navigate])
 
   const updateProjects = (newProject) => {
