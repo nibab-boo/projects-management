@@ -204,6 +204,32 @@ app.post("/api/projects/:id/status", async (req, res) => {
   }
 })
 
+app.get("/api/projects/:id", async (req, res) => {
+  const toUpdateId = req.params.id;
+  console.log(toUpdateId);
+  const token = req.headers['x-access-token'];
+  try {
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
+
+    const projectId = mongoose.Types.ObjectId(toUpdateId);
+
+      // RETRIVING ONLY ONE PROJECT
+      const user = await User.findOne({
+        email: decoded.email,
+        "projects._id": projectId,
+      }, 
+      {
+        "projects.$": 1,
+      })
+
+      res.json({ status: "Ok", project: user.projects[0] })
+    // console.log(projectId, decoded);
+  } catch (err) {
+    console.log(err)
+    res.json({status: "error", error: "Action Failed"})
+  }
+})
+        
 
 if (process.env.NODE_ENV === 'production') {
   // Exprees will serve up production assets

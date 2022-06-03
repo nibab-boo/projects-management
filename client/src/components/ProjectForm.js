@@ -1,7 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ProjectForm = ({title, submit}) => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [name, setName] = React.useState('');
   const [details, setDetails] = React.useState('');
@@ -10,6 +11,34 @@ const ProjectForm = ({title, submit}) => {
   const [hosting, setHosting] = React.useState('');
   const [stacks, setStacks] = React.useState('');
   const [status, setStatus] = React.useState('WAITING');
+
+
+  React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/');
+    }
+    if (id) {
+      fetch(`/api/projects/${id}`,{
+        headers: {
+          'x-access-token': token,
+        }
+      }).then(res => res.json())
+      .then(data => {
+        if (data.status === "Ok") {
+          const project = data.project;
+          setName(project.name);
+          setDetails(project.details);
+          setUrlLink(project.urlLink);
+          setRepo(project.repo);
+          setHosting(project.hosting);
+          setStacks(project.stacks.join(","));
+          setStatus(project.status);
+        }
+      })
+    }
+  })
 
   const createProject = async (e) => {
     e.preventDefault();
@@ -71,7 +100,7 @@ const ProjectForm = ({title, submit}) => {
           <input class="form-control" id="floatingPassword" placeholder="Amazon"  type="text" value={hosting} name="hosting" onChange={(e)=> setHosting(e.currentTarget.value)}/>
           <label for="floatingPassword">Hosting</label>
         </div>
-        <select class="form-select mb-3" name="status" defaultValue="WAITING" id="status" onChange={(e) => setStatus(e.currentTarget.selectedOptions[0].value)}>
+        <select class="form-select mb-3" name="status" value={status} id="status" onChange={(e) => setStatus(e.currentTarget.selectedOptions[0].value)}>
           <option value="WAITING">Waiting</option>
           <option value="ONGOING">Ongoing</option>
           <option value="COMPLETED">Completed</option>

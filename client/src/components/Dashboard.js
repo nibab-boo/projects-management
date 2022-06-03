@@ -143,8 +143,8 @@ const Dashboard = () => {
           </ul>
           <p>HOSTING: {project.hosting}</p>
           <div style={{float: "right"}}>
-            <button className='btn btn-sm btn-warning mx-1' onClick={() => deleteProject(project._id)}>EDIT</button>
-            <button className='btn btn-sm btn-danger mx-1' onClick={() => editProject(project._id)}>DELETE</button>
+            <button className='btn btn-sm btn-warning mx-1' onClick={() => editProject(project._id)}>EDIT</button>
+            <button className='btn btn-sm btn-danger mx-1' onClick={() => deleteProject(project._id)}>DELETE</button>
           </div>
         </div>)
       })
