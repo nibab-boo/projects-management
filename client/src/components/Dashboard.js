@@ -1,13 +1,14 @@
+import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 const jwt = require('jsonwebtoken');
-
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [quote, setQuote] = React.useState('');
   const [username, setUserName] = React.useState('');
   const [projects, setProjects] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
 
   const populateQuote = async () => {
@@ -31,6 +32,7 @@ const Dashboard = () => {
     } else {
       alert(data.error)
     }
+    setLoading(() => false);
   }
 
   React.useEffect(() => {
@@ -157,6 +159,7 @@ const Dashboard = () => {
   }
 
   return (
+    <>
     <div className='d-flex flex-md-column'>
       {/* LEFT SIDES */}
       <div className='leftSide'>
@@ -195,6 +198,8 @@ const Dashboard = () => {
         
       </div>
     </div>
+    <ClipLoader color="purple" speedMultiplier={.5} height="100vh" width="100vw" loading={loading} size={150} />
+    </>
   );
 };
 
