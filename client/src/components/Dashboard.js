@@ -12,7 +12,6 @@ const Dashboard = () => {
 
 
   const populateQuote = async () => {
-    console.log("4");
     const res = await fetch("/api/user",{
       method: "GET",
       headers: {
@@ -20,33 +19,28 @@ const Dashboard = () => {
         "x-access-token": localStorage.getItem("token")
       }
     });
-    console.log("5");
-    console.log("response", res);
     const data = await res.json();
-    console.log("data", data);
     if (data.status === "Ok") {
       setQuote(data.quote);
       setUserName(data.username);
       const newProjects = data.projects;
       setProjects([...newProjects]);
     } else {
-      alert(data.error)
+      alert(data.error);
+      navigate("/");
     }
     setLoading(() => false);
   }
 
   React.useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log("1");
     const fetchData = async () => {
       if (token) {
         const user = jwt.decode(token);
         if (!user) {
-          console.log("A");
           localStorage.removeItem('token');
           navigate("/");
         } else {
-          console.log("2");
           await populateQuote();
         }
       } else {
@@ -65,7 +59,6 @@ const Dashboard = () => {
     })
 
     const data = await res.json();
-    // console.log(data);
     if (data.status === "Ok") {
       const newProjects = projects.filter((project) => project._id !== data.id)
       console.log(projects, newProjects)
