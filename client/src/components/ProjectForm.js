@@ -58,29 +58,29 @@ const ProjectForm = ({title, submit}) => {
       }}
     )
 
-    // if (!id) {
-      // const res = await fetch("/api/projects/new", {
-      //   method: "post",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "x-access-token": localStorage.getItem("token")
-      //   },
-      //   body: JSON.stringify({project: {
-      //     name,
-      //     details,
-      //     urlLink,  
-      //     repoLink: repo,
-      //     hosting,
-      //     status,
-      //     stacks: arrayStack
-      //   }})
-      // });
-      // const data = await res.json();
-      // if (data.status === "Ok") {
-      //   navigate('/dashboard');
-      // }
+    if (!id) {
+      const res = await fetch("/api/projects/new", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem("token")
+        },
+        body: JSON.stringify({project: {
+          name,
+          details,
+          urlLink,  
+          repoLink: repo,
+          hosting,
+          status,
+          stacks: arrayStack
+        }})
+      });
+      const data = await res.json();
+      if (data.status === "Ok") {
+        navigate('/dashboard');
+      }
       
-    // } else {
+    } else {
       const res = await fetch(`/api/projects/${id}`, {
         method: "put",
         headers: {
@@ -102,7 +102,7 @@ const ProjectForm = ({title, submit}) => {
       if (data.status === "Ok") {
         navigate('/dashboard');
       }
-    // }
+    }
     
   
   }

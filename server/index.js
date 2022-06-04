@@ -23,7 +23,6 @@ const url = `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@clust
 mongoose.connect(url)
 
 app.post("/api/register", async (req, res) => {
-  console.log(req.body);
   try {
     // BCRYPT USER BEFORE CREATING IT.
     const newPassword = await bcrypt.hash(req.body.password, 10);
@@ -34,8 +33,25 @@ app.post("/api/register", async (req, res) => {
       quote: req.body.quote,
       password: newPassword,
     })
-    // res.send(user);
-    res.json({status: "Ok"})
+    const user = await User.findOne({
+      email: req.body.email,
+      password: newPassword
+    })
+    //  CREATING TOKEN FOR SESSION
+    console.log(user);
+    if (user) {
+      const token = jwt.sign(
+        {
+          name: user.name,
+          email: user.email,
+        },
+        process.env.SECRETKEY
+      )
+      console.log(token);
+      res.json({status: "Ok", user: token})
+    } else {
+      res.json({status: "Pending"})
+    }
   } catch (err) {
     // IF CREATE FAILED
     console.log(err);
@@ -60,7 +76,6 @@ app.post("/api/login", async (req, res) => {
       },
       process.env.SECRETKEY
     )
-    console.log(token);
     return res.json({status: "Ok", user: token})
   } else {
     return  res.json({status: "error", user: false})
@@ -69,7 +84,6 @@ app.post("/api/login", async (req, res) => {
 })
 
 app.get("/api/user", async (req, res) => {
-  console.log("Hello");
   const token = req.headers['x-access-token'];
   try {
     const decoded = jwt.verify(token, process.env.SECRETKEY);
@@ -94,7 +108,6 @@ app.post("/api/quote", async (req, res) => {
       { email: email },
       { $set: { quote: req.body.quote } }  
     );
-    console.log(user);
 
     res.json({ status: "Ok", quote: user.quote })
   } catch(err) {

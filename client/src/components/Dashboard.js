@@ -48,7 +48,7 @@ const Dashboard = () => {
           await populateQuote();
         }
       } else {
-        navigate("/login")
+        navigate("/")
       }
     }
     fetchData()
@@ -112,10 +112,10 @@ const Dashboard = () => {
       <>
       {projectList.map((project) => {
         return (
-        <div key={project._id} className="shadow p-3 mb-5 bg-body rounded" style={{textAlign: "left"}} >
+        <div key={project._id} className="shadow p-3 mb-5 m-5 bg-body rounded" style={{textAlign: "left", width: "300px"}} >
           <h4>{project.name}</h4>
           <p style={{color: "gray"}}>{project.details}</p>
-          <p>
+          <li>
             <span className='me-3'>
               STATUS: {project.status}
             </span>
@@ -133,12 +133,12 @@ const Dashboard = () => {
                 </button>
               )
             }
-          </p>
-          <div className='border p-2 pb-0 mb-2'>
-            <p>REPO: <a target="_blank" href={project.repoLink} rel="noreferrer"> {project.repoLink} </a></p>
-            <p>LIVE: <a target="_blank" href={project.urlLink} rel="noreferrer"> {project.urlLink} </a></p>
-          </div>
-          <p>STACKS</p>
+          </li>
+          {/* <div className='border p-2 pb-0 mb-2'> */}
+            <li>REPO: <a target="_blank" href={project.repoLink} rel="noreferrer"> {project.repoLink} </a></li>
+            <li>LIVE: <a target="_blank" href={project.urlLink} rel="noreferrer"> {project.urlLink} </a></li>
+          {/* </div> */}
+          <li>STACKS</li>
           <ul style={{listStyle: "inside"}} className="border p-2 rounded">
             { project.stacks.map((stack) => (
               <li className='d-inline pe-3'>{stack}</li>
@@ -157,7 +157,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='d-flex'>
+    <div className='d-flex flex-md-column'>
       {/* LEFT SIDES */}
       <div className='leftSide'>
         <div>
@@ -182,12 +182,12 @@ const Dashboard = () => {
       </div>
 
       {/* RIGHT SIDE */}
-      <div className='py-3 px-5'>
+      <div className='py-3 px-5' style={{marginLeft: "180px"}}>
         
         <h1 className='mb-5'>
           You have {projects.length} projects.
         </h1>
-        <div className=''>
+        <div className='d-flex flex-wrap'>
           { projects &&
             (<Projects projectList={projects}/>)
           }

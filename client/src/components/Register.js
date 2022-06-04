@@ -22,7 +22,13 @@ const Register = () => {
     const data = await response.json();
     console.log(data);
     if (data.status === "Ok") {
-      navigate("/login");
+      console.log(data.user);
+      localStorage.setItem("token", data.user);
+      navigate('/dashboard');
+    } else if (data.status === "pending") {
+      alert("Please try logging in.");
+    } else {
+      alert("DUPLICATE EMAIL");
     }
   }
 

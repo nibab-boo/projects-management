@@ -7,6 +7,9 @@
 
 .leftSide {
   height: 100vh;
+  position: fixed;
+  top:0;
+  left: 0;
   /* background: linear-gradient(45deg, #010830, white);; */
   background-color: rgb(242, 239, 236);
   width: 180px;
@@ -18,7 +21,10 @@
   padding: 24px 0;
   border-radius: 0 24px 32px 0;
 }
+/* 
+@media only screen and (max-width: 560px) {
 
+} */
 .leftSide > div > div,.leftSide li {
   cursor: pointer;
 }

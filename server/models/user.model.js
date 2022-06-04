@@ -4,8 +4,8 @@ const Project = new mongoose.Schema(
   {
     name: { type: String, required: true },
     details: { type: String, required: true },
-    urlLink: { type: String, unique: true },
-    repoLink: { type: String, unique: true },
+    urlLink: { type: String },
+    repoLink: { type: String },
     status: { type: String, enum: ["WAITING", "ONGOING", "COMPLETED"], default: "WAITING" },
     stacks: [String],
     hosting: { type: String, required: true }
