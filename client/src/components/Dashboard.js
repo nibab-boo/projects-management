@@ -1,4 +1,3 @@
-import ProjectForm from './ProjectForm';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 const jwt = require('jsonwebtoken');
@@ -58,7 +57,7 @@ const Dashboard = () => {
 
   // DELETING PROJECT FROM USER
   const deleteProject = async (id) => {
-    const res = await fetch(`/api/projects/${id}/delete`, {
+    const res = await fetch(`/api/projects/${id}`, {
       method: "DELETE",
       headers: { "x-access-token": localStorage.getItem("token") }
     })
@@ -74,8 +73,7 @@ const Dashboard = () => {
 
   // CHANGE STATUS
   const changeStatus = async (id, status) => {
-    console.log("id", id);
-    console.log("status", status);
+
     const res = await fetch(`/api/projects/${id}/status`, {
       method: "POST",
       headers: {

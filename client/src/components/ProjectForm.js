@@ -31,29 +31,23 @@ const ProjectForm = ({title, submit}) => {
           setName(project.name);
           setDetails(project.details);
           setUrlLink(project.urlLink);
-          setRepo(project.repo);
+          setRepo(project.repoLink);
           setHosting(project.hosting);
           setStacks(project.stacks.join(","));
           setStatus(project.status);
         }
       })
     }
-  })
+  }, [navigate, id])
 
-  const createProject = async (e) => {
+  const projectAction = async (e) => {
     e.preventDefault();
 
     const arrayStack = stacks.split(",").map((stack) => {
       return stack.trim();
     });
-
-    const res = await fetch("/api/projects/new", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem("token")
-      },
-      body: JSON.stringify({project: {
+    console.log(
+      {project: {
         name,
         details,
         urlLink,  
@@ -61,13 +55,56 @@ const ProjectForm = ({title, submit}) => {
         hosting,
         status,
         stacks: arrayStack
-      }})
-    });
-    const data = await res.json();
-    console.log(data);
-    if (data.status === "Ok") {
-      navigate('/dashboard');
-    }
+      }}
+    )
+
+    // if (!id) {
+      // const res = await fetch("/api/projects/new", {
+      //   method: "post",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     "x-access-token": localStorage.getItem("token")
+      //   },
+      //   body: JSON.stringify({project: {
+      //     name,
+      //     details,
+      //     urlLink,  
+      //     repoLink: repo,
+      //     hosting,
+      //     status,
+      //     stacks: arrayStack
+      //   }})
+      // });
+      // const data = await res.json();
+      // if (data.status === "Ok") {
+      //   navigate('/dashboard');
+      // }
+      
+    // } else {
+      const res = await fetch(`/api/projects/${id}`, {
+        method: "put",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem("token")
+        },
+        body: JSON.stringify({project: {
+          name,
+          details,
+          urlLink,  
+          repoLink: repo,
+          hosting,
+          status,
+          stacks: arrayStack
+        }})
+      });
+      console.log(res);
+      const data = await res.json();
+      if (data.status === "Ok") {
+        navigate('/dashboard');
+      }
+    // }
+    
+  
   }
 
   return (
@@ -75,7 +112,7 @@ const ProjectForm = ({title, submit}) => {
       <h3 className='my-5'>
         {title}
       </h3>
-      <form onSubmit={(e) => createProject(e)}>
+      <form onSubmit={(e) => projectAction(e)}>
         <div class="form-floating mb-3">
           <input class="form-control" id="floatingInput" placeholder="Amazing App" type="text" value={name} name="Name" onChange={(e)=> setName(e.currentTarget.value)} />
           <label for="floatingInput">Name</label>

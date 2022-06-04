@@ -87,8 +87,6 @@ app.get("/api/user", async (req, res) => {
 
 app.post("/api/quote", async (req, res) => {
   const token = req.headers['x-access-token'];
-  console.log(token);
-  console.log(req.body)
   try {
     const decoded = jwt.verify(token, process.env.SECRETKEY);
     const email = decoded.email;
@@ -137,7 +135,7 @@ app.post("/api/projects/new", async(req, res) => {
 })
 
 
-app.delete("/api/projects/:id/delete", async (req, res) => {
+app.delete("/api/projects/:id", async (req, res) => {
   // console.log(req.params.id)
   const toDeleteId = req.params.id
   const token = req.headers['x-access-token'];
@@ -164,6 +162,36 @@ app.delete("/api/projects/:id/delete", async (req, res) => {
     res.json({status: "error", error: "Delete process unfulfilledd"})
   }
 })
+
+
+app.put("/api/projects/:id", async (req, res) => {
+  console.log("Herre");
+  const toUpdateId = req.params.id;
+  const token = req.headers["x-access-token"];
+
+  console.log("id", toUpdateId);
+  try {
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
+    const projectId = new mongoose.Types.ObjectId(toUpdateId);
+
+    const response = await User.updateOne({
+      email: decoded.email,
+      'projects._id': projectId,
+    }, {
+      $set: {
+        'projects.$': req.body.project
+      }
+    })
+    console.log(response);
+    res.json({status: "Ok"})
+
+  } catch (err) {
+    console.log(err);
+    res.json( { status: "error", error: "Update failed."} )
+  }
+});
+
+
 
 app.post("/api/projects/:id/status", async (req, res) => {
   const toUpdateId = req.params.id;
@@ -203,6 +231,7 @@ app.post("/api/projects/:id/status", async (req, res) => {
     res.json({status: "error", error: "Action Failed"})
   }
 })
+
 
 app.get("/api/projects/:id", async (req, res) => {
   const toUpdateId = req.params.id;
