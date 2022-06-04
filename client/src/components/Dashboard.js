@@ -26,7 +26,6 @@ const Dashboard = () => {
       const newProjects = data.projects;
       setProjects([...newProjects]);
     } else {
-      alert(data.error);
       navigate("/");
     }
     setLoading(() => false);
