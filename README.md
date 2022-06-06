@@ -49,7 +49,7 @@ Install dependencies
 Start the server
 
 ```bash
-  yarn start
+  yarn dev
 ```
 
 
