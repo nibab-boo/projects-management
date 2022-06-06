@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Login from './Login';
+import Login from './Login.tsx';
 import Register from './Register';
 
 const RootPage = () => {
