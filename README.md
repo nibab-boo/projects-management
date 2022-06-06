@@ -46,22 +46,13 @@ Install dependencies
   yarn install
 ```
 
-create .env file in root directory
-
-set ENV variables
-
-```bash
-  USERNAME= mongodbatlas username
-  DATABASE= mongodbatlas database
-  PASSWORD= mongodbatlas password for username
-  SECRETKEY= random alphnumeric
-```
-
 Start the server
 
 ```bash
   yarn start
 ```
+
+
 
 Open new Terminal
 
