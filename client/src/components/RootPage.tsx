@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Login from './Login.tsx';
 import Register from './Register.tsx';
 
-const RootPage = () => {
+const RootPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token: string = localStorage.getItem("token");
 
   React.useEffect(() => {
     if (token) {
