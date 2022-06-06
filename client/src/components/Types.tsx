@@ -28,8 +28,9 @@ export type registerJsonType = {
 }
 
 // ERROR TYPE
-interface errorType extends status {
-  error: "invalid token" | "Action Failed"
+interface errorType {
+  status: "error",
+  error: "invalid token" | "Action Failed" | "Delete process unfulfilledd" | "Please, retry again"
 }
 
 // QUOTE SUCCESS STORY
@@ -46,6 +47,7 @@ export interface newEditProjectType extends status {
 
 // project jsonType
 export type projectType = {
+    _id: string,
     name: string,
     details: string,
     urlLink: string,
@@ -55,9 +57,30 @@ export type projectType = {
     status: string
 }
 
-interface successProjectType {
-  project: projectType,
-  status: statusType
+
+// DASHBOARD user Fetch
+interface successUserJsonType {
+  status: "Ok",
+  username: string,
+  quote: string,
+  projects: projectType[],
 }
 
-export type projectFetchType = successProjectType | errorType;
+export type userFetchJsonType = successUserJsonType | errorType;
+
+// DELETE JSON TYPE
+interface deleteSuccessType {
+  status: "Ok",
+  id: string,
+}
+
+export type deleteJsonType = deleteSuccessType | errorType;
+
+
+// CHANGE STATUS
+interface statusChangeSuccessType {
+  status: "Ok",
+  project: projectType,
+}
+
+export type statusChangeJsonType = statusChangeSuccessType | errorType;

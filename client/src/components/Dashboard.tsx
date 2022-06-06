@@ -1,17 +1,18 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import { deleteJsonType, projectType, statusChangeJsonType, userFetchJsonType } from "./Types";
 const jwt = require('jsonwebtoken');
 
-const Dashboard = () => {
+const Dashboard = (): JSX.Element => {
   const navigate = useNavigate();
-  const [quote, setQuote] = React.useState('');
-  const [username, setUserName] = React.useState('');
-  const [projects, setProjects] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const [quote, setQuote] = React.useState<string>('');
+  const [username, setUserName] = React.useState<string>('');
+  const [projects, setProjects] = React.useState<projectType[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(true);
 
 
-  const populateQuote = async () => {
+  const populateQuote = async (): Promise<void> => {
     const res = await fetch("/api/user",{
       method: "GET",
       headers: {
@@ -19,7 +20,7 @@ const Dashboard = () => {
         "x-access-token": localStorage.getItem("token")
       }
     });
-    const data = await res.json();
+    const data: userFetchJsonType = await res.json();
     if (data.status === "Ok") {
       setQuote(data.quote);
       setUserName(data.username);
@@ -32,10 +33,11 @@ const Dashboard = () => {
   }
 
   React.useEffect(() => {
-    const token = localStorage.getItem('token');
-    const fetchData = async () => {
+    const token: string = localStorage.getItem('token');
+    const fetchData = async (): Promise<void> => {
       if (token) {
         const user = jwt.decode(token);
+        console.log(user);
         if (!user) {
           localStorage.removeItem('token');
           navigate("/");
@@ -48,16 +50,17 @@ const Dashboard = () => {
     }
     fetchData()
     .catch(console.error);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate])
 
   // DELETING PROJECT FROM USER
-  const deleteProject = async (id) => {
+  const deleteProject = async (id: string): Promise<void> => {
     const res = await fetch(`/api/projects/${id}`, {
       method: "DELETE",
       headers: { "x-access-token": localStorage.getItem("token") }
     })
 
-    const data = await res.json();
+    const data: deleteJsonType = await res.json();
     if (data.status === "Ok") {
       const newProjects = projects.filter((project) => project._id !== data.id)
       console.log(projects, newProjects)
@@ -66,7 +69,7 @@ const Dashboard = () => {
   }
 
   // CHANGE STATUS
-  const changeStatus = async (id, status) => {
+  const changeStatus = async (id: string, status: string): Promise<void> => {
 
     const res = await fetch(`/api/projects/${id}/status`, {
       method: "POST",
@@ -77,10 +80,9 @@ const Dashboard = () => {
       body: JSON.stringify({ status: status }),
     })
 
-    const data = await res.json();
+    const data: statusChangeJsonType = await res.json();
     console.log(data);
     if (data.status === "Ok") {
-      // console.log("hello");
       const updatedProjects = projects.map((project) => {
         if (project._id !== data.project._id) return project;
         return data.project;
@@ -92,16 +94,16 @@ const Dashboard = () => {
     }
   }
 
-  const editProject = (id) => {
+  const editProject = (id: string): void => {
     navigate(`/project/edit/${id}`);
   }
 
-  const logOut = () => {
+  const logOut = (): void => {
     localStorage.removeItem("token");
     navigate("/");
   }
 
-  const Projects = ({projectList}) => {
+  const Projects = ({projectList}: {projectList: projectType[]}): JSX.Element => {
     return(
       <>
       {projectList.map((project) => {
@@ -115,14 +117,14 @@ const Dashboard = () => {
             </span>
             { project.status === "WAITING" &&
               (
-                <button className='btn btn-sm btn-outline-primary' onClick={() => changeStatus(project._id, "ONGOING")}>
+                <button className='btn btn-sm btn-outline-primary' onClick={(): Promise<void> => changeStatus(project._id, "ONGOING")}>
                   Let's Start
                 </button>
               )
             }
             { project.status === "ONGOING" &&
               (
-                <button className='btn btn-sm btn-outline-primary' onClick={() => changeStatus(project._id, "COMPLETED")}>
+                <button className='btn btn-sm btn-outline-primary' onClick={(): Promise<void> => changeStatus(project._id, "COMPLETED")}>
                   Mark as Completed
                 </button>
               )
@@ -135,13 +137,13 @@ const Dashboard = () => {
           <li>STACKS</li>
           <ul style={{listStyle: "inside"}} className="border p-2 rounded">
             { project.stacks.map((stack) => (
-              <li className='d-inline pe-3'>{stack}</li>
+              <li key={stack} className='d-inline-block pe-3'>{stack}</li>
             ))}
           </ul>
           <p>HOSTING: {project.hosting}</p>
           <div style={{float: "right"}}>
-            <button className='btn btn-sm btn-warning mx-1' onClick={() => editProject(project._id)}>EDIT</button>
-            <button className='btn btn-sm btn-danger mx-1' onClick={() => deleteProject(project._id)}>DELETE</button>
+            <button className='btn btn-sm btn-warning mx-1' onClick={(): void => editProject(project._id)}>EDIT</button>
+            <button className='btn btn-sm btn-danger mx-1' onClick={(): Promise<void> => deleteProject(project._id)}>DELETE</button>
           </div>
         </div>)
       })
@@ -172,7 +174,7 @@ const Dashboard = () => {
             <li className=''  onClick={ () => navigate("/quote")}>Change Gift</li>
             <li className='' onClick={ () => navigate("/project/new") }>Add Project</li>
           </ul>
-          <div style={{borderRadius: "16px"}}className='p-2 mx-5 my-3 bg-danger text-white' onClick={() => logOut()}>Log Out</div>
+          <div style={{borderRadius: "16px"}}className='p-2 mx-5 my-3 bg-danger text-white' onClick={():void => logOut()}>Log Out</div>
         </div>
       </div>
 
@@ -190,7 +192,7 @@ const Dashboard = () => {
         
       </div>
     </div>
-    <ClipLoader color="purple" speedMultiplier={.5} height="100vh" width="100vw" loading={loading} size={150} />
+    <ClipLoader color="purple" speedMultiplier={.5} loading={loading} size={150} />
     </>
   );
 };

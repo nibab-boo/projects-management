@@ -236,7 +236,7 @@ app.post("/api/projects/:id/status", async (req, res) => {
 
       res.json({ status: "Ok", project: user.projects[0] })
     } else {
-      res.json({ status: "error", error: "Sorry for inconvience. Please, retry again." })
+      res.json({ status: "error", error: "Please, retry again" })
     }
     // console.log(projectId, decoded);
   } catch (err) {

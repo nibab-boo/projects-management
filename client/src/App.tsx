@@ -2,7 +2,7 @@ import './App.css';
 import React from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import RootPage from './components/RootPage.tsx';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/Dashboard.tsx';
 import Quote from './components/Quote.tsx';
 import ProjectForm from './components/ProjectForm.tsx';
 
