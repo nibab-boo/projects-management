@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import RootPage from './components/RootPage.tsx';
 import Dashboard from './components/Dashboard';
 import Quote from './components/Quote.tsx';
-import ProjectForm from './components/ProjectForm';
+import ProjectForm from './components/ProjectForm.tsx';
 
 function App() {
 

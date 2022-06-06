@@ -133,11 +133,11 @@ app.post("/api/projects/new", async(req, res) => {
     if (response.acknowledged) {
  
       // GIVES USER WITH ONLY ID AND ONE PROJECT
-      const user = await User.findOne(
-        { email: email, "projects.name": req.body.project.name},
-        { "projects.$": 1 }
-        )
-      res.json({status: "Ok", project: user.projects[0]})
+      // const user = await User.findOne(
+      //   { email: email, "projects.name": req.body.project.name},
+      //   { "projects.$": 1 }
+      //   )
+      res.json({status: "Ok"})
     } else {
       res.json({ status: "error", error: "Unable to add project"})
     }
@@ -236,7 +236,7 @@ app.post("/api/projects/:id/status", async (req, res) => {
 
       res.json({ status: "Ok", project: user.projects[0] })
     } else {
-      res.json({ status: "error", errro: "Sorry for inconvience. Please, retry again." })
+      res.json({ status: "error", error: "Sorry for inconvience. Please, retry again." })
     }
     // console.log(projectId, decoded);
   } catch (err) {

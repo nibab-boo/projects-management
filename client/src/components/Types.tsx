@@ -27,11 +27,37 @@ export type registerJsonType = {
   error?: "Duplicate email" 
 }
 
-interface quoteErrorType extends status {
-  error: "invalid token"
+// ERROR TYPE
+interface errorType extends status {
+  error: "invalid token" | "Action Failed"
 }
+
+// QUOTE SUCCESS STORY
 interface quoteSuccessType extends status {
   quote: string
 }
 
-export type quoteJsonType = quoteErrorType | quoteSuccessType;
+export type quoteJsonType = errorType | quoteSuccessType;
+
+// new/edit project response
+export interface newEditProjectType extends status {
+  error?: string
+}
+
+// project jsonType
+export type projectType = {
+    name: string,
+    details: string,
+    urlLink: string,
+    repoLink: string,
+    hosting: string,
+    stacks: string[],
+    status: string
+}
+
+interface successProjectType {
+  project: projectType,
+  status: statusType
+}
+
+export type projectFetchType = successProjectType | errorType;
