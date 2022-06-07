@@ -74,3 +74,15 @@ Start the client
   yarn start
 ```
 
+
+## Running Tests
+
+`
+    npm test
+`
+or
+`
+    yarn test
+`
+
+
