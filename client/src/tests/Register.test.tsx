@@ -2,7 +2,7 @@ import { screen, render } from "@testing-library/react";
 import Register from "./../components/Register";
 import { BrowserRouter as Router} from "react-router-dom";
 
-test("register form exist", async () => {
+test("register form exists", async () => {
   render(
     <Router>
       <Register />
