@@ -15,23 +15,25 @@ interface status {
   status: statusType,
 }
 
+// ERROR TYPE
+interface errorType {
+  status: "error",
+  error: "invalid token" | "Action Failed" | "Delete process unfulfilledd" | "Please, retry again" | "Duplicate email" 
+}
+
 // login Json return
 export interface loginJsonType extends status {
   user: false | string
 }
 
 // register Json return
-export type registerJsonType = {
-  status: statusType | "Pending",
-  user?: "string",
-  error?: "Duplicate email" 
+interface registerSuccessType {
+  status: "Ok"
+  user: string
 }
 
-// ERROR TYPE
-interface errorType {
-  status: "error",
-  error: "invalid token" | "Action Failed" | "Delete process unfulfilledd" | "Please, retry again"
-}
+export type registerJsonType = registerSuccessType | errorType | { status: "Pending" }
+
 
 // QUOTE SUCCESS STORY
 interface quoteSuccessType extends status {
