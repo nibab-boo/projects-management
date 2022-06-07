@@ -5,7 +5,7 @@ import Register from './Register.tsx';
 
 const RootPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const token: string = localStorage.getItem("token");
+  const token: string | null = localStorage.getItem("token");
 
   React.useEffect(() => {
     if (token) {

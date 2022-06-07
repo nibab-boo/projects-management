@@ -42,21 +42,21 @@ const Register = (): JSX.Element => {
           Sign Up
         </strong>
       </h3>
-      <form onSubmit={registerUser}>
+      <form onSubmit={registerUser} data-testid="register-form">
         <div className="form-floating mb-3">
-          <input type="text" className="form-control" id="floatingInput" placeholder="Adam Christ" value={name} onChange={(e:onChangeEventType): void=> setName(e.currentTarget.value)} />
+          <input data-testid="input" type="text" className="form-control" id="floatingInput" placeholder="Adam Christ" value={name} onChange={(e:onChangeEventType): void=> setName(e.currentTarget.value)} />
           <label htmlFor="floatingInput">Name</label>
         </div>
         <div className="form-floating mb-3">
-          <input type="email" className="form-control" id="floatingEmail" placeholder="email" value={email} onChange={(e:onChangeEventType): void=> setEmail(e.currentTarget.value)}/>
+          <input data-testid="input" type="email" className="form-control" id="floatingEmail" placeholder="email" value={email} onChange={(e:onChangeEventType): void=> setEmail(e.currentTarget.value)}/>
           <label htmlFor="floatingEmail">Email</label>
         </div>
         <div className="form-floating mb-3">
-          <input type="password" className="form-control" id="floatingPassword" placeholder="Password" value={password} autoComplete='on' onChange={(e:onChangeEventType): void=> setPassword(e.currentTarget.value)}/>
+          <input data-testid="input" type="password" className="form-control" id="floatingPassword" placeholder="Password" value={password} autoComplete='on' onChange={(e:onChangeEventType): void=> setPassword(e.currentTarget.value)}/>
           <label htmlFor="floatingPassword">Password</label>
         </div>
         <div className="d-grid gap-2">
-          <input type="submit" className='btn btn-primary btn-sm fs-3 fw-bold' value="Sign Up" />
+          <input data-testid="input" type="submit" className='btn btn-primary btn-sm fs-3 fw-bold' value="Sign Up" />
         </div>
       </form>
     </div>

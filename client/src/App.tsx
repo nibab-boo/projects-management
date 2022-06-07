@@ -1,9 +1,13 @@
 import './App.css';
 import React from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+// @ts-ignore
 import RootPage from './components/RootPage.tsx';
+// @ts-ignore
 import Dashboard from './components/Dashboard.tsx';
+// @ts-ignore
 import Quote from './components/Quote.tsx';
+// @ts-ignore
 import ProjectForm from './components/ProjectForm.tsx';
 
 function App(): JSX.Element {
