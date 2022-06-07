@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+// @ts-ignore
 import Login from './Login.tsx';
+// @ts-ignore
 import Register from './Register.tsx';
 
 const RootPage = (): JSX.Element => {
