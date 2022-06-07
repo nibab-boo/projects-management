@@ -15,7 +15,7 @@ const RootPage = (): JSX.Element => {
   return (
     <div className='container'>
     <div>
-      <h3> Projects Management App</h3>
+      <h3 data-testid="main-title"> Projects Management App</h3>
       <p className='mt-3'>
         <strong>Record your app ideas and working project in a organized way</strong>
       </p>

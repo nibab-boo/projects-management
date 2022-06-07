@@ -6,7 +6,7 @@ import Dashboard from './components/Dashboard.tsx';
 import Quote from './components/Quote.tsx';
 import ProjectForm from './components/ProjectForm.tsx';
 
-function App() {
+function App(): JSX.Element {
 
 
 
