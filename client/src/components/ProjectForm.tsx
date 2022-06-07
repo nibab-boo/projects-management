@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { asyncFunctionType, newEditProjectType, onChangeEventType, submitEventType, projectType } from './Types';
 
-const ProjectForm = ({title, submit}) => {
+const ProjectForm = ({title, submit}: {title: string, submit: string}): JSX.Element => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [name, setName] = React.useState<string>('');
