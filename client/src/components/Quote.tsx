@@ -12,7 +12,7 @@ const Quote = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem("token")
+        "x-access-token": localStorage.getItem("token") as string
       },
       body: JSON.stringify({ quote: tempquote })
     });
@@ -24,11 +24,11 @@ const Quote = () => {
     }
   }
   return (
-    <div>
+    <div data-testid="quote">
       <h1>Gift of words to your future self. </h1>
       <form onSubmit={(e:submitEventType) => updateQuote(e)}>
-        <input type="text" placeholder='Your quote' value={tempquote} onChange={(e: onChangeEventType): void=> setTempQuote(e.currentTarget.value)} />
-        <input type="submit" value="SUBMIT" />
+        <input data-testid="input" type="text" placeholder='Your quote' value={tempquote} onChange={(e: onChangeEventType): void=> setTempQuote(e.currentTarget.value)} />
+        <input data-testid="input" type="submit" value="SUBMIT" />
       </form>
     </div>
   );

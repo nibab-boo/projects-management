@@ -17,7 +17,7 @@ const Dashboard = (): JSX.Element => {
       method: "GET",
       headers: {
         "Accept": "application/json", 
-        "x-access-token": localStorage.getItem("token")
+        "x-access-token": localStorage.getItem("token") as string
       }
     });
     const data: userFetchJsonType = await res.json();
@@ -57,7 +57,7 @@ const Dashboard = (): JSX.Element => {
   const deleteProject = async (id: string): Promise<void> => {
     const res = await fetch(`/api/projects/${id}`, {
       method: "DELETE",
-      headers: { "x-access-token": localStorage.getItem("token") }
+      headers: { "x-access-token": localStorage.getItem("token") as string }
     })
 
     const data: deleteJsonType = await res.json();
@@ -75,7 +75,7 @@ const Dashboard = (): JSX.Element => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem("token"),
+        "x-access-token": localStorage.getItem("token") as string,
       },
       body: JSON.stringify({ status: status }),
     })
@@ -154,7 +154,7 @@ const Dashboard = (): JSX.Element => {
 
   return (
     <>
-    <div className='d-flex flex-md-column'>
+    <div className='d-flex flex-md-column' data-testid="dashboard">
       {/* LEFT SIDES */}
       <div className='leftSide'>
         <div>
