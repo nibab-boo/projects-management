@@ -37,7 +37,7 @@ const Login = (): JSX.Element => {
           Log In
         </strong>
       </h3>
-      <form onSubmit={loginUser}>
+      <form data-testid="login-form" onSubmit={loginUser}>
         <div className="form-floating mb-3">
           <input data-testid="input" type="email" className="form-control" id="floatingEmail" placeholder="email" value={email} onChange={(e: onChangeEventType):void => setEmail(e.currentTarget.value)}/>
           <label htmlFor="floatingEmail">Email</label>

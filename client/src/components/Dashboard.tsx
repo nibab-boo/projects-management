@@ -33,7 +33,7 @@ const Dashboard = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    const token: string = localStorage.getItem('token');
+    const token: string | null = localStorage.getItem('token');
     const fetchData = async (): Promise<void> => {
       if (token) {
         const user = jwt.decode(token);
